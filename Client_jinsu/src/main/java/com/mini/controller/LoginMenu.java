@@ -1,6 +1,5 @@
 package com.mini.controller;
 
-import com.mini.enumcode.AuthorityCode;
 import com.mini.model.dto.member.ClientDTO;
 import com.mini.service.AddMember;
 import com.mini.service.IdentifyMember;
@@ -17,7 +16,7 @@ public class LoginMenu {
 
 
     public void ShowMenu() {
-        clientDTOList.add(new ClientDTO("박진수", "11111111", 1, false, 29, 1, 1 ));
+        clientDTOList.add(new ClientDTO("박진수", "11111111", 1, false, 29, 1, 1));
         clientDTOList.add(new ClientDTO("안준렬", "22222222", 2, false, 29, 2, 2));
         clientDTOList.add(new ClientDTO("이은솔", "33333333", 3, true, 29, 3, 3));
         clientDTOList.add(new ClientDTO("장준영", "44444444", 3, false, 29, 4, 4));
@@ -42,7 +41,7 @@ public class LoginMenu {
                         loggedMember = IdentifyMember.isIdentified(clientDTOList);
                         if (loggedMember != null) {
                             resultPrinter.showResult(2, clientDTOList, loggedMember); //로그인 완료 표시
-                            info.showInfo(loggedMember); // InfoMenu에 회원 정보 전달
+                            info.showInfo(loggedMember); // ClientMenu_Login에 회원 정보 전달
                             break;
                         } else {
                             resultPrinter.showResult(4, clientDTOList, loggedMember); //정보 다시 입력

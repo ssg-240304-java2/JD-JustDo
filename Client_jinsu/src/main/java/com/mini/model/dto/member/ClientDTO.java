@@ -4,6 +4,10 @@ public class ClientDTO extends MemberDTO{
     private int duration;
     private int instructorNo;
 
+    public void setInstructorNo(int instructorNo) {
+        this.instructorNo = instructorNo;
+    }
+
     public void setDuration(int duration) {
         this.duration = duration;
     }

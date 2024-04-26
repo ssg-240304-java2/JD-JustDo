@@ -2,7 +2,7 @@ package com.mini.controller;
 
 
 import com.mini.model.dto.member.ClientDTO;
-import com.mini.service.PurchaseMemberShip;
+import com.mini.service.SelectMemberShipService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -30,7 +30,7 @@ public class ClientMenu_login {
                     resultPrinter.showResult(5, clientDTOList, loggedMember);
                     break;
                 case 2: //센터 이용권 구매
-                    PurchaseMemberShip.purchase(loggedMember);
+                    SelectMemberShipService.purchase(loggedMember);
                     break;
                 case 3: // 로그아웃
                     resultPrinter.showResult(7, clientDTOList, loggedMember);

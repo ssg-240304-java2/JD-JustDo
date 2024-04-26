@@ -1,6 +1,5 @@
 package com.mini.controller;
 
-import com.mini.enumcode.AuthorityCode;
 import com.mini.model.dto.member.ClientDTO;
 import java.util.ArrayList;
 
@@ -26,6 +25,7 @@ public class ResultPrinter {
                 break;
             case 5: // 내 정보 입력
                 if (loggedMember != null) {
+                    System.out.println("=====================================");
                     System.out.println("회원 이름: " + loggedMember.getMemberName());
                     System.out.println("회원 전화번호: " + loggedMember.getMemberPhone());
                     System.out.println("회원 지점: " + loggedMember.getCenter());
@@ -33,6 +33,7 @@ public class ResultPrinter {
                     System.out.println("회원 나이: " + loggedMember.getMemberAge());
                     System.out.println("이용 기간: " + loggedMember.getDuration());
                     System.out.println("지정 강사번호: " + loggedMember.getInstructorNo());
+                    System.out.println("=====================================");
                 } else {
                     System.out.println("로그인한 회원의 정보가 없습니다.");
                 }
