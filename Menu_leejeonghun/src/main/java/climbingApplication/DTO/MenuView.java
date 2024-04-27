@@ -1,4 +1,4 @@
-package climbingApplication.View;
+package climbingApplication.DTO;
 
 import climbingApplication.DTO.Member.ClientDTO;
 import climbingApplication.DTO.Member.InstructorDTO;
@@ -11,7 +11,6 @@ public class MenuView {
     private InstructorDTO instructorDTO;
     private ClientDTO clientDTO;
     AuthorityCode authorityCode;
-    private Controller controller = new Controller();
     public void AuthorityMenu(){
         Scanner sc = new Scanner(System.in);
         boolean isTrue = true;
@@ -244,11 +243,10 @@ public class MenuView {
             sc.nextLine();
             switch (num){
                 case 1:
-                    // 로그인 메소드 호출
+                    Controller controller = new Controller();
+                    controller.logIn(authorityCode.getDescription());
                     // 완료후 로그인후 페이지 호출
-                    if(controller.logIn(authorityCode.getDescription())) {
-                        AdminMenu_login();
-                    }
+                    AdminMenu_login();
                     break;
                 case 9:
                     System.out.println("이전화면으로 되돌아갑니다.");
