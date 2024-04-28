@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class IdentifyMember {
     static Scanner sc = new Scanner(System.in);
 
-    public static ClientDTO isIdentified(ArrayList<ClientDTO> clientDTOList) {
+    public static ClientDTO isIdentified(ArrayList<ClientDTO> clientDTOList) { // 회원 가입 전 기존 회원인지 확인
         ClientDTO identifiedMember = null;
 
         while (identifiedMember == null) {

@@ -13,7 +13,7 @@ public class AddMember {
     static ClientDTO loggedMember;
 
 
-    public static void addId(ArrayList<ClientDTO> clientDTOList) {
+    public static void addId(ArrayList<ClientDTO> clientDTOList) { // 회원 가입 (정보 입력)
 
         while (true) {
             System.out.print("""
