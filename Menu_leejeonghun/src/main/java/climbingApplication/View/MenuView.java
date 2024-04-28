@@ -12,8 +12,9 @@ public class MenuView {
     private ClientDTO clientDTO;
     AuthorityCode authorityCode;
     private Controller controller = new Controller();
+
+    // 권한 선택 메뉴
     public void AuthorityMenu(){
-        Scanner sc = new Scanner(System.in);
         boolean isTrue = true;
         while(isTrue) {
             System.out.println("""
@@ -27,15 +28,7 @@ public class MenuView {
                 9. 종료
                 ==================================
                 """);
-            int authority;
-            try{
-                System.out.print("번호를 입력해주세요 : ");
-                authority = sc.nextInt();
-            }catch(Exception e){
-                System.out.println("메뉴의 정수만 입력하세요.");
-                continue;
-            }
-            sc.nextLine();
+            int authority = controller.selectNum();
             switch (authority) {
                 case 1:
                     authorityCode = AuthorityCode.ADMIN;
@@ -65,7 +58,6 @@ public class MenuView {
     }
 
     public void InstructorMenu(){
-        Scanner sc = new Scanner(System.in);
         while(true){
             // 로그인 미진행 시 아래 화면
             System.out.println("""
@@ -76,15 +68,7 @@ public class MenuView {
                     9. 뒤로가기
                     =========================================
                     """);
-            int num;
-            try{
-                System.out.print("번호를 입력해주세요 : ");
-                num = sc.nextInt();
-            }catch(Exception e){
-                System.out.println("메뉴의 정수만 입력하세요.");
-                continue;
-            }
-            sc.nextLine();
+            int num = controller.selectNum();
             switch (num){
                 case 1:
                     // 로그인 완료시 아래 메소드 호출
@@ -104,7 +88,6 @@ public class MenuView {
     }
 
     public void InstructorMenu_login(){
-        Scanner sc = new Scanner(System.in);
         while(true) {
             System.out.println("""
                     =========================================
@@ -115,15 +98,7 @@ public class MenuView {
                     9. 로그아웃
                     =========================================
                     """);
-            int num;
-            try{
-                System.out.print("번호를 입력해주세요 : ");
-                num = sc.nextInt();
-            }catch(Exception e){
-                System.out.println("메뉴의 정수만 입력하세요.");
-                continue;
-            }
-            sc.nextLine();
+            int num = controller.selectNum();
             switch (num){
                 case 1:
                     // 로그인 완료 후 내 정보 불러오기
@@ -142,7 +117,6 @@ public class MenuView {
     }
 
     public void ClientMenu(){
-        Scanner sc = new Scanner(System.in);
         while(true){
             // 회원 객체가 null이면 => 로그인을 아직 안했으면 (조건절)
             System.out.println("""
@@ -154,15 +128,7 @@ public class MenuView {
                     9. 뒤로가기
                     =========================================
                     """);
-            int num;
-            try{
-                System.out.print("번호를 입력해주세요 : ");
-                num = sc.nextInt();
-            }catch(Exception e){
-                System.out.println("메뉴의 정수만 입력하세요.");
-                continue;
-            }
-            sc.nextLine();
+            int num = controller.selectNum();
             switch (num){
                 case 1:
                     // 회원가입 메소드 호출
@@ -182,7 +148,6 @@ public class MenuView {
     }
 
     public void ClientMenu_login(){
-        Scanner sc = new Scanner(System.in);
         while(true){
             System.out.println("""
                     =========================================
@@ -194,15 +159,7 @@ public class MenuView {
                     9. 로그아웃
                     =========================================
                     """);
-            int num;
-            try{
-                System.out.print("번호를 입력해주세요 : ");
-                num = sc.nextInt();
-            }catch(Exception e){
-                System.out.println("메뉴의 정수만 입력하세요.");
-                continue;
-            }
-            sc.nextLine();
+            int num = controller.selectNum();
             switch (num){
                 case 1:
                     // 내정보 불러오기 메소드
@@ -224,7 +181,6 @@ public class MenuView {
     }
 
     public void AdminMenu(){
-        Scanner sc = new Scanner(System.in);
         while(true){
             System.out.println("""
                     =========================================
@@ -233,15 +189,7 @@ public class MenuView {
                     9. 뒤로가기
                     =========================================
                     """);
-            int num;
-            try{
-                System.out.print("번호를 입력해주세요 : ");
-                num = sc.nextInt();
-            }catch(Exception e){
-                System.out.println("메뉴의 정수만 입력하세요.");
-                continue;
-            }
-            sc.nextLine();
+            int num = controller.selectNum();
             switch (num){
                 case 1:
                     // 로그인 메소드 호출
@@ -258,7 +206,6 @@ public class MenuView {
     }
 
     public void AdminMenu_login(){
-        Scanner sc = new Scanner(System.in);
         while(true){
             System.out.println("""
                         =========================================
@@ -272,15 +219,7 @@ public class MenuView {
                         9. 로그아웃
                         =========================================
                     """);
-            int num;
-            try{
-                System.out.print("번호를 입력해주세요 : ");
-                num = sc.nextInt();
-            }catch(Exception e){
-                System.out.println("메뉴의 정수만 입력하세요.");
-                continue;
-            }
-            sc.nextLine();
+            int num = controller.selectNum();
             switch (num){
                 case 1:
                     // 회원등록 메소드 호출
