@@ -7,13 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminService {
-    // ArrayList 떄려넣고
-    // 회원등록 기능떄려넣기
-    // 기능별로 메소드만 분리
-    // 메서드 하나씩 만들어서 떄려박기 로그인, 수정, 한명조회
-    // 에러가 나는건지, 로직이 이해가안가는건지, 캡쳐해서 자세하게 구분해서 어떤것을 모르는지 질문을할것
-    // 코드를뜯거나 만들기전에 로직을 손으로 써놓고 참고하면서 할것..
-
     // 회원 리스트 선언
     private ArrayList<MemberDTO> memberList;
 
@@ -134,6 +127,7 @@ public class AdminService {
         return gender;
     }
 
+    // 회원나이를 입력받는 메서드
     public int inputMemberAge() {
         Scanner sc = new Scanner(System.in);
         System.out.print("나이를 입력하세요 : ");
