@@ -13,7 +13,10 @@ public class MenuView {
     AuthorityCode authorityCode;
     private Controller controller = new Controller();
 
-    // 권한 선택 메뉴
+    // AuthorityMenu : 권한 선택 메뉴
+    // 메뉴 화면에 관한 메소드
+    // admin : 관리자, instructor : 강사, Client : 고객
+    // _login : 로그인 후 메뉴
     public void AuthorityMenu(){
         boolean isTrue = true;
         while(isTrue) {
