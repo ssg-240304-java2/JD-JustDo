@@ -4,6 +4,7 @@ import climbingApplication.DTO.Member.ClientDTO;
 import climbingApplication.DTO.Member.InstructorDTO;
 import climbingApplication.ENUM.AuthorityCode;
 import climbingApplication.Controller;
+import climbingApplication.ENUM.GradeEnum;
 import climbingApplication.Repository;
 
 import java.util.Scanner;
@@ -67,6 +68,7 @@ public class MenuView {
 
     }
 
+    // 강사전용 도메인 화면 메서드1 (준영)
     public void InstructorMenu(){
         Scanner sc = new Scanner(System.in);
         while(true){
@@ -108,6 +110,7 @@ public class MenuView {
         }
     }
 
+    // 강사전용 도메인 화면 메서드2 (준영)
     public void InstructorMenu_login(){
         Scanner sc = new Scanner(System.in);
         while(true) {
@@ -131,7 +134,7 @@ public class MenuView {
             sc.nextLine();
             switch (num){
                 case 1:
-                    // 로그인 완료 후 내 정보 불러오기
+                    // 로그인 완료 후 내 정보 불러오기 (준영)
                     for (int i = 0; i < repository.getInstructorDTOList().size(); i++) {
                         if (controller.getInstructorNo() == repository.getInstructorDTOList().get(i).getInstructorNo()) {
                             System.out.println("=====================================");
@@ -141,27 +144,30 @@ public class MenuView {
                             System.out.println("강사 성별: " + repository.getInstructorDTOList().get(i).isMemberGender());
                             System.out.println("강사 나이: " + repository.getInstructorDTOList().get(i).getMemberAge());
                             System.out.println("강사 번호: " + repository.getInstructorDTOList().get(i).getInstructorNo());
-                            System.out.println("강사 등급: " + repository.getInstructorDTOList().get(i).getInstructorGrade());
+                            System.out.println("강사 등급: " + repository.getInstructorDTOList().get(i).getInstructorGrade() + "등급");
                             System.out.println("=====================================");
                         }
                     }
                     break;
                 case 2:
-                    // 레퍼지토리에서 내 회원 리스트 메소드 불러오기
-                    for (int i = 0; i < repository.getClientDTOList().size(); i++) {
-                        if (controller.getInstructorNo() == repository.getClientDTOList().get(i).getInstructorNo()) {
-                            System.out.println("=====================================");
-                            System.out.println("회원 이름: " + repository.getClientDTOList().get(i).getMemberName());
-                            System.out.println("회원 전화번호: " + repository.getClientDTOList().get(i).getMemberPhone());
-                            System.out.println("회원 지점: " + repository.getClientDTOList().get(i).getCenter());
-                            System.out.println("회원 성별: " + repository.getClientDTOList().get(i).isMemberGender());
-                            System.out.println("회원 나이: " + repository.getClientDTOList().get(i).getMemberAge());
-                            System.out.println("이용 기간: " + repository.getClientDTOList().get(i).getDuration());
-                            System.out.println("지정 강사번호: " + repository.getClientDTOList().get(i).getInstructorNo());
-                            System.out.println("=====================================");
+                    // 레퍼지토리에서 내 회원 리스트 메소드 불러오기 (준영)
+                    if (repository.getClientDTOList() == null | repository.getClientDTOList().isEmpty()) {
+                        System.out.println("등록된 수강생이 없습니다.");
+                    } else {
+                        for (int i = 0; i < repository.getClientDTOList().size(); i++) {
+                            if (controller.getInstructorNo() == repository.getClientDTOList().get(i).getInstructorNo()) {
+                                System.out.println("=====================================");
+                                System.out.println("회원 이름: " + repository.getClientDTOList().get(i).getMemberName());
+                                System.out.println("회원 전화번호: " + repository.getClientDTOList().get(i).getMemberPhone());
+                                System.out.println("회원 지점: " + repository.getClientDTOList().get(i).getCenter());
+                                System.out.println("회원 성별: " + repository.getClientDTOList().get(i).isMemberGender());
+                                System.out.println("회원 나이: " + repository.getClientDTOList().get(i).getMemberAge());
+                                System.out.println("이용 기간: " + repository.getClientDTOList().get(i).getDuration());
+                                System.out.println("지정 강사번호: " + repository.getClientDTOList().get(i).getInstructorNo());
+                                System.out.println("=====================================");
+                            }
                         }
                     }
-
                     break;
                 case 9:
                     System.out.println("로그아웃을 완료했습니다.");

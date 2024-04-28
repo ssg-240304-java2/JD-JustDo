@@ -1,7 +1,17 @@
 package climbingApplication.ENUM;
 
 public enum GradeEnum {
-    A_GRADE,
-    B_GRADE,
-    C_GRADE
+    A_GRADE('A'),
+    B_GRADE('B'),
+    C_GRADE('C');
+
+    private final char description;
+
+    GradeEnum(char description) {
+        this.description = description;
+    }
+
+    public char getDescription() {
+        return this.description;
+    }
 }
