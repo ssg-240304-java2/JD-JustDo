@@ -17,7 +17,7 @@ public class SelectMemberShipService {
     static ProductDTO productDTO = new ProductDTO();
     static List<String> instructorNo = Arrays.asList("1", "2", "3", "4", "5");
 
-    public static void purchase(ClientDTO loggedMember) {
+    public static void purchase(ClientDTO loggedMember) { // 이용권 구매, 이용권이 없으면 강사 지정
 
         while (true) {
             System.out.println("""
@@ -62,6 +62,7 @@ public class SelectMemberShipService {
         }
 
 //        productDTO.setProductQuantity(productDTO.getProductQuantity() - 1); //물품 재고 -1
+        // === 등급 선택 후 해당하는 강사 출력 ===
 
         if (loggedMember.getInstructorNo() == 0) { //강사 번호가 0이면서 지정되어있지 않으면
             while (true) {

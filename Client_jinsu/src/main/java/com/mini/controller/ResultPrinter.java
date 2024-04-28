@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ResultPrinter {
 
-    public void showResult(int msg, ArrayList<ClientDTO> clientDTOList, ClientDTO loggedMember) {
+    public void showResult(int msg, ArrayList<ClientDTO> clientDTOList, ClientDTO loggedMember) { // result 출력
 
         switch (msg) {
             case 1: // 전체 지점 출력

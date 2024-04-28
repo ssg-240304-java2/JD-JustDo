@@ -15,7 +15,7 @@ public class LoginMenu {
     ClientDTO loggedMember;
 
 
-    public void ShowMenu() {
+    public void ShowMenu() { // 로그인, 정보 조회, 회원가입 들어가기
         clientDTOList.add(new ClientDTO("박진수", "11111111", 1, false, 29, 1, 1));
         clientDTOList.add(new ClientDTO("안준렬", "22222222", 2, false, 29, 2, 2));
         clientDTOList.add(new ClientDTO("이은솔", "33333333", 3, true, 29, 3, 3));

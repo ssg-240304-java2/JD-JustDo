@@ -12,7 +12,7 @@ public class ClientMenu_login {
     ResultPrinter resultPrinter = new ResultPrinter();
     ArrayList<ClientDTO> clientDTOList = new ArrayList<>();
 
-    public void showInfo(ClientDTO loggedMember) {
+    public void showInfo(ClientDTO loggedMember) { // 회원 로그인 후 기능 선택
         while (true) {
             System.out.print("""
                     ========================================
