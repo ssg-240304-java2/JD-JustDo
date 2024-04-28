@@ -8,7 +8,7 @@ public class Controller {
     private final String adminId = "admin";
     private final String adminSecrete = "admin";
 
-    // 숫자 선택 메소드
+    // 숫자 선택 메소드 (메뉴에서 메뉴 선택 메소드)
     public int selectNum(){
         Scanner sc = new Scanner(System.in);
         int num;
@@ -25,7 +25,7 @@ public class Controller {
             }
         }
     }
-    // 로그인 입력 메소드
+    // 로그인 입력 메소드 (권한을 부여받아 로그인 입력 메소드)
     public boolean logIn(String authority){
         boolean isTrue = true;
         while(isTrue) {
@@ -46,7 +46,7 @@ public class Controller {
         return true;
     }
 
-    // 관리자 로그인 메소드
+    // 관리자 로그인 메소드 (관리자의 로그인 입력 메소드)
     public boolean adminLogIn(String[] arr){
         if(arr[0].equals(adminId)){
             if(arr[1].equals(adminSecrete)){
