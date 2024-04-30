@@ -32,6 +32,7 @@ public class ClimbingController {
 
                 // TODO:try-catch사용하는데 비교할 필요 있는지?
                 if(Integer.class.isInstance(num)){
+                    sc.nextLine();
                     return num;
                 }
             } catch (Exception e){

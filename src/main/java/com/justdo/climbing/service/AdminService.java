@@ -56,17 +56,19 @@ public class AdminService {
 
         System.out.print("사용지점을 입력하세요(강남 (1), 역삼 (2), 방배 (3) : ");
         int center = sc.nextInt();
+        sc.nextLine();
 
         System.out.print("성별을 입력하세요 남(1), 여(2) : ");
         boolean gender = false;
         int checkGender = sc.nextInt();
-
+        sc.nextLine();
         if (checkGender == 1) {
             gender = true;
         }
 
         System.out.print("나이를 입력하세요 : ");
         int age = sc.nextInt();
+        sc.nextLine();
 
         // 받은 회원정보를 선언한 멤버객체에 넣어줌
         m = new MemberDTO(name,phone,center,gender,age);
@@ -232,7 +234,9 @@ public class AdminService {
 
     public int inputCenter() {
         System.out.print("사용지점을 입력하세요(강남 (1), 역삼 (2), 방배 (3) : ");
-        return sc.nextInt();
+        int center = sc.nextInt();
+        sc.nextLine();
+        return center;
     }
 
     // 회원성별을 입력받는 메서드
@@ -240,7 +244,7 @@ public class AdminService {
         System.out.print("성별을 입력하세요 남(1), 여(2) : ");
         boolean gender = false;
         int checkGender = sc.nextInt();
-
+        sc.nextLine();
         if (checkGender == 1) {
             gender = true;
         }
@@ -250,12 +254,15 @@ public class AdminService {
     // 회원나이를 입력받는 메서드
     public int inputMemberAge() {
         System.out.print("나이를 입력하세요 : ");
-        return sc.nextInt();
+        int age = sc.nextInt();
+        sc.nextLine();
+        return age;
     }
 
     public void AddInstructorInfo(){
         while (true) {
             System.out.print("핸드폰 번호를 입력해주세요 (010,- 제외 8자리): ");
+           // sc.nextLine();
             String inputPhone = sc.nextLine();
             boolean instructorPhonNumber =checkInstructorPhonNumber(inputPhone);
             boolean iscontainsPhoneNumber = repository.isContainsInstructorPhoneNumber(inputPhone);
