@@ -14,19 +14,27 @@ public class ClientService {
     private ClimbingRepository repository = ClimbingRepository.getInstance();
     private ClientDTO identifiedMember = null;
 
-    public ClientDTO ClientLogin(){
+    public ClientDTO ClientLogin(String phoneNum,String userName){
 
 //        ClientDTO identifiedMember = null;
 
-        while (identifiedMember == null) {
+//        while (identifiedMember == null) {
             try {
                 sc = new Scanner(System.in);
-                System.out.print("핸드폰번호를 입력해주세요(010, ' - ' 제외 8자리 : ");
-                String phoneNum = sc.nextLine();
-                if (phoneNum.length() != 8) {
-                    throw new IllegalArgumentException("허용되지 않은 번호입니다. 010, ' - ' 제외 숫자 8자리 입력해주세요");
-                }
-                System.out.print("지점 번호를 입력해주세요 : ");
+//                System.out.print("핸드폰번호를 입력해주세요(010, ' - ' 제외 8자리 : ");
+//                String phoneNum = sc.nextLine();
+//                if (phoneNum.length() != 8) {
+//                    throw new IllegalArgumentException("허용되지 않은 번호입니다. 010, ' - ' 제외 숫자 8자리 입력해주세요");
+//                }
+                System.out.println(""" 
+                1. 천안
+                2. 시흥
+                3. 강남점
+                4. 양재점
+                5. 역삼점
+                6. 선릉점
+                7. 삼성점""");
+                System.out.print("가입하신 지점을 목록에서 선택해주세요. : ");
                 int center = sc.nextInt();
                 sc.nextLine();
                 if (center < 0) {
@@ -36,21 +44,21 @@ public class ClientService {
                 // 입력받은 핸드폰 번호와 기존 번호를 기존의 list와 비교
                 if (repository.getClientListInfoList() != null && !repository.getClientListInfoList().isEmpty()) {
                     for (ClientDTO c : repository.getClientListInfoList()) {
-                        if (c.getMemberPhone().equals(phoneNum) && c.getCenter() == center) {
+                        if (c.getMemberPhone().equals(phoneNum) && userName.equals(c.getMemberName()) && c.getCenter() == center) {
                             identifiedMember = c;
                             break;
                         }
                     }
                 }
                 if (identifiedMember == null) {
-                    System.out.println("유효한 회원이 아닙니다. 다시 입력해주세요");
+                    System.out.println("가입되어있지 않는 회원이 아닙니다. 다시 입력해주세요");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("잘못된 입력 형식입니다. 다시 입력해주세요.");
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
-        }
+
         return identifiedMember;
     }
 
@@ -87,8 +95,9 @@ public class ClientService {
             String name = sc.nextLine();
 
             try {
+                boolean isAdded = false;
                 if (clientDTOList != null && !clientDTOList.isEmpty()) {
-                    boolean isAdded = false;
+
                     for (ClientDTO c : clientDTOList) {
                         if (c.getMemberPhone().equals(phoneNum)) {
                             System.out.println("이미 등록되어있는 핸드폰 번호입니다.");
@@ -96,22 +105,32 @@ public class ClientService {
                             break;
                         }
                     }
-                    if (!isAdded) {
 
-                        System.out.println("사용지점을 입력해주세요 (int)");
-                        int center = sc.nextInt();
-                        sc.nextLine();
-                        System.out.println("성별을 입력해주세요 (true/false)");
-                        boolean gender = sc.nextBoolean();
-                        System.out.println("나이를 입력해주세요");
-                        int age = sc.nextInt();
+                }
+                if (!isAdded) {
 
-                        ClientDTO newMember = new ClientDTO(name, phoneNum, center, gender, age, 0, 0);
-                        clientDTOList.add(newMember);
-                        System.out.println("회원 등록이 완료되었습니다.");
-                        sc.nextLine();
-                        return;
-                    }
+                    System.out.println(""" 
+                        1. 천안
+                        2. 시흥
+                        3. 강남점
+                        4. 양재점
+                        5. 역삼점
+                        6. 선릉점
+                        7. 삼성점""");
+                    System.out.print("이용하실 지점을 목록에서 선택해주세요. : ");
+                    int center = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("성별을 입력하세요 남(1), 여(2) : ");
+                    int gender = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("나이를 입력해주세요");
+                    int age = sc.nextInt();
+
+                    ClientDTO newMember = new ClientDTO(name, phoneNum, center, gender==1, age, 0, 0);
+                    clientDTOList.add(newMember);
+                    System.out.println("회원 등록이 완료되었습니다.");
+                    sc.nextLine();
+                    return;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("올바른 입력 형식이 아닙니다. 다시 입력해주세요");
@@ -120,8 +139,12 @@ public class ClientService {
         }
     }
 
-    public void purchase(){
-
+    public void purchase(String phoneNumber){
+        identifiedMember = repository.getLoginClientInfo(phoneNumber);
+        if (identifiedMember==null){
+            System.out.println("회원정보가 없습니다. 다시확인해주세요.");
+            return;
+        }
         while (true) {
             System.out.println("""
                     ========================================
@@ -236,6 +259,15 @@ public class ClientService {
                     continue;
                 }
                 break;
+            }
+        }
+    }
+
+    public void printClientInfo(String phoneNumber){
+        for (ClientDTO clientDTO : repository.getClientListInfoList()){
+            if(phoneNumber.equals(clientDTO.getMemberPhone())){
+                System.out.println(clientDTO.toString());
+                return;
             }
         }
     }

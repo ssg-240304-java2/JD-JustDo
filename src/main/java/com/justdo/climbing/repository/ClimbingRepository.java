@@ -37,6 +37,15 @@ public class ClimbingRepository {
         return clientDTOList;
     }
 
+    public ClientDTO getLoginClientInfo(String id ){
+        for (ClientDTO clientDTO : clientDTOList){
+            if(id.equals(clientDTO.getMemberPhone())){
+                return clientDTO;
+            }
+        }
+        return null;
+    }
+
     public boolean isContainsInstructorPhoneNumber(String inputInstructorPhoneNumber){
         // 강사리스트에 핸드폰 번호가 이미 등록되어있는지 확인
         for (InstructorDTO instructorDTO : instructorDTOList){
@@ -71,8 +80,8 @@ public class ClimbingRepository {
         String name = scanner.nextLine();
         inputInstructorInfo.setMemberName(name);
 
-        System.out.print("강사의 성별을 입력해주세요(f : 여성 / m : 남성) : ");
-        boolean gender = ("f".equals(scanner.nextLine().charAt(0)))?true:false;
+        System.out.print("성별을 입력하세요 남(1), 여(2) : ");
+        boolean gender = ("1".equals(scanner.nextLine().charAt(0)));
         inputInstructorInfo.setMemberGender(gender);
 
         System.out.print("강사의 나이를 입력해주세요 : ");
@@ -80,8 +89,21 @@ public class ClimbingRepository {
         inputInstructorInfo.setMemberAge(age);
         scanner.nextLine();
 
-        //TODO:선택하게될 센터 목록 정하기
-        inputInstructorInfo.setCenter(1);
+        System.out.println(""" 
+                ======================
+                    지 점 목 록
+                ======================
+                1. 천안
+                2. 시흥
+                3. 강남점
+                4. 양재점
+                5. 역삼점
+                6. 선릉점
+                7. 삼성점""");
+        System.out.print("이용하실 지점을 목록에서 선택해주세요. : ");
+        int center = scanner.nextInt();
+        scanner.nextLine();
+        inputInstructorInfo.setCenter(center);
 
         instructorDTOList.add(inputInstructorInfo);
     }
@@ -103,8 +125,8 @@ public class ClimbingRepository {
         String name = scanner.nextLine();
         inputInstructorInfo.setMemberName(name);
 
-        System.out.print("수정할 강사의 성별을 입력해주세요(f : 여성 / m : 남성) : ");
-        boolean gender = ("f".equals(scanner.nextLine().charAt(0)))?true:false;
+        System.out.print("성별을 입력하세요 남(1), 여(2) : ");
+        boolean gender = ("1".equals(scanner.nextLine().charAt(0)));
         inputInstructorInfo.setMemberGender(gender);
 //        scanner.nextLine();
         System.out.print("수정할 강사의 나이를 입력해주세요 : ");
@@ -112,15 +134,32 @@ public class ClimbingRepository {
         inputInstructorInfo.setMemberAge(age);
         scanner.nextLine();
 
-        //TODO:선택하게될 센터 목록 정하기
-        inputInstructorInfo.setCenter(1);
+        System.out.println(""" 
+                1. 천안
+                2. 시흥
+                3. 강남점
+                4. 양재점
+                5. 역삼점
+                6. 선릉점
+                7. 삼성점""");
+        System.out.print("강의하실 지점을 목록에서 선택해주세요. : ");
+        int center = scanner.nextInt();
+        scanner.nextLine();
+        inputInstructorInfo.setCenter(center);
 
-        for (InstructorDTO instructorDTO : instructorDTOList){
-            if(instructorDTO.getMemberPhone().equals(inputInstructorInfo.getMemberPhone())){
-                instructorDTO=inputInstructorInfo;
+        int updateIndex=-1;
+        for (int i = 0; i < instructorDTOList.size(); i++) {
+            if(instructorDTOList.get(i).getMemberPhone().equals(inputInstructorInfo.getMemberPhone())){
+                updateIndex=i;
                 break;
             }
         }
+        if(updateIndex == -1){
+            System.out.println("변경할 강사가 없습니다.");
+            return;
+        }
+
+        instructorDTOList.set(updateIndex,inputInstructorInfo);
 
     }
 

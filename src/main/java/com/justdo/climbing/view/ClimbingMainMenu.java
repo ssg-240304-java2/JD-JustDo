@@ -1,13 +1,11 @@
 package com.justdo.climbing.view;
 
-import com.justdo.climbing.AuthorityCode;
+import com.justdo.climbing.constant.AuthorityCode;
 import com.justdo.climbing.controller.ClimbingController;
 import com.justdo.climbing.dto.member.ClientDTO;
 import com.justdo.climbing.service.AdminService;
 import com.justdo.climbing.service.ClientService;
 import com.justdo.climbing.service.InstructorService;
-
-import java.util.Scanner;
 
 public class ClimbingMainMenu {
 
@@ -49,7 +47,7 @@ public class ClimbingMainMenu {
                 case 3:
                     authorityCode = AuthorityCode.CLIENT;
                     System.out.println(authorityCode.getDescription() + " 을(를) 선택했습니다.");
-//                    ClientMenu();
+                    ClientMenu();
                     break;
                 case 9:
                     System.out.println("프로그램을 종료합니다.");
@@ -80,7 +78,7 @@ public class ClimbingMainMenu {
                 case 1:
                     // 로그인 메소드 호출
                     // 완료후 로그인후 페이지 호출
-                    if(controller.logIn(authorityCode.getDescription())) {
+                    if(!controller.logIn(authorityCode.getDescription()).isBlank()) {
                         AdminMenu_login();
                     }
                     break;
@@ -104,7 +102,7 @@ public class ClimbingMainMenu {
                         2. 강사 등록
                         3. 회원 정보 수정
                         4. 강사 정보 수정
-                        5. 회원 정보 조히
+                        5. 회원 정보 조회
                         6. 강사 정보 조회
                         7. 물품 관리
                         9. 로그아웃
@@ -122,6 +120,7 @@ public class ClimbingMainMenu {
                     break;
                 case 3:
                     // 회원 정보 수정 메소드 호출
+
                     adminService.updateMemberMenu();
                     break;
                 case 4:
@@ -167,8 +166,9 @@ public class ClimbingMainMenu {
             switch (num){
                 case 1:
                     // 로그인 완료시 아래 메소드 호출
-                    if (controller.logIn(authorityCode.getDescription())) {
-                        InstructorMenu_login();
+                    String id = controller.logIn(authorityCode.getDescription());
+                    if (!id.isBlank()) {
+                        InstructorMenu_login(id);
                     }
                     break;
                 case 9:
@@ -185,7 +185,7 @@ public class ClimbingMainMenu {
     /**
      * 로그인 후 강사메뉴
      * */
-    public void InstructorMenu_login(){
+    public void InstructorMenu_login(String id){
         while(true) {
             System.out.println("""
                     =========================================
@@ -200,7 +200,7 @@ public class ClimbingMainMenu {
             switch (num){
                 case 1:
                     // 로그인 완료 후 내 정보 불러오기 (준영)
-                    instructorService.printInstructorInfo();
+                    instructorService.printInstructorInfo(id);
                     break;
                 case 2:
                     instructorService.printClientInfoToInstructor();
@@ -242,8 +242,9 @@ public class ClimbingMainMenu {
                     break;
                 case 2:
                     // 로그인 메소드 호출
-                    if (controller.logIn(authorityCode.getDescription())) {
-                        ClientMenu_login();
+                    String cleintID= controller.logIn(authorityCode.getDescription());
+                    if (!cleintID.isBlank()) {
+                        ClientMenu_login(cleintID);
                     }
                     break;
                 case 9:
@@ -259,7 +260,7 @@ public class ClimbingMainMenu {
     /**
      * 로그인 후 회원 메뉴
      * */
-    public void ClientMenu_login(){
+    public void ClientMenu_login(String id){
         while(true){
             System.out.println("""
                     =========================================
@@ -275,11 +276,11 @@ public class ClimbingMainMenu {
             switch (num){
                 case 1:
                     // 내정보 불러오기 메소드
-
+                    clientService.printClientInfo(id);
                     break;
                 case 2:
                     // 회원권 구매 메소드
-//                    clientService.purchase(new ClientDTO());
+                    clientService.purchase(id);
                     break;
                 case 3:
                     // 물품 구매 메소드
