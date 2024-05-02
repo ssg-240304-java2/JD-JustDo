@@ -44,37 +44,43 @@ public class ClimbingController {
 
     /**
      * 권한이 일치한 경우 로그인 진행
-     * 배열 -> 각가 받는것으로 변경
+     * 배열 -> 각각 받는것으로 변경
+     * Stirng으로 넘겨서 받는걸로
      * */
-    public boolean logIn(String authority){
-        boolean isTrue = true;
+    public String logIn(String authority){
+//        boolean isTrue = true;
 //        Scanner sc = new Scanner(System.in);
-        while(isTrue) {
-
+        while(true) {
             System.out.print("아이디(핸드폰 번호)를 입력하시오 : ");
             String id = sc.nextLine();
             System.out.print("비밀번호를 입력하시오 : ");
             String secreteNum = sc.nextLine();
 //            this.loginInformation = new String[]{id, secreteNum};
             if ("관리자".equals(authority)) {
-                isTrue = adminLogIn(id,secreteNum);
+                if(!adminLogIn(id,secreteNum)){
+                    return id;
+                }
+
             }else if ("강사".equals(authority)){
                 // 강사 로그인 메소드 호출
-                isTrue = instructorLogin(id,secreteNum);
+                if(!instructorLogin(id,secreteNum)){
+                    return id;
+                }
             }else{
                 // 회원 로그인 메소드 호출
                 //TODO:로그인과 회원 정보 출력 분리 필요
-                ClientDTO clientDTO = clientService.ClientLogin();
-                isTrue = (clientDTO != null);
-                System.out.println(clientDTO.toString());
+                ClientDTO clientDTO = clientService.ClientLogin(id,secreteNum);
+                if(clientDTO != null){
+                    return id;
+                }
+
             }
         }
-        return true;
+
     }
 
     /**
      * Controller 안에서만 실행될것이기 때문에 private으로 변경
-     * 배열 -> id,pwd
      * */
     private boolean adminLogIn(String id, String secrete){
         if(adminId.equals(id)){

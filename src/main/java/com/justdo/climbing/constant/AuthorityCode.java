@@ -1,4 +1,4 @@
-package com.justdo.climbing;
+package com.justdo.climbing.constant;
 
 public enum AuthorityCode {
     ADMIN("관리자"),

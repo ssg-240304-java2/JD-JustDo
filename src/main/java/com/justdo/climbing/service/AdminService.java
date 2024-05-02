@@ -35,26 +35,47 @@ public class AdminService {
 
         System.out.print("(010, - 제외한)휴대폰 번호 8자리를 입력하세요 : ");
         String phone = sc.next();
+        boolean instructorPhonNumber =checkInstructorPhonNumber(phone);
 
-        // 번호가 8자리가 아니면 메뉴로 다시 돌아감
-        if (phone.length() != 8) {
-            System.out.println("휴대폰번호는 8자리여만 입력해야합니다.");
+        if (!instructorPhonNumber){
             return;
-        } else {
-            // 번호가 8자리이면 입력받은 핸드폰번호를 멤버리스트에서 중복번호가 있는지 검사
-            // 중복된 번호가 있다면 다시 메뉴로 돌아감
-            for (MemberDTO mem : memberList) {
-                if (mem.getMemberPhone().equals(phone)) {
-                    System.out.println("이미 등록되어있는 핸드폰번호입니다.");
-                    return;
-                }
+        }
+
+        for (MemberDTO memberDTO : memberList){
+
+            if(phone.equals(memberDTO.getMemberPhone())){
+                System.out.println("이미 등록되어있는 핸드폰번호입니다.");
+                return;
             }
         }
+
+        // 번호가 8자리가 아니면 메뉴로 다시 돌아감
+//        if (phone.length() != 8) {
+//            System.out.println("휴대폰번호는 8자리여만 입력해야합니다.");
+//            return;
+//        } else {
+//            // 번호가 8자리이면 입력받은 핸드폰번호를 멤버리스트에서 중복번호가 있는지 검사
+//            // 중복된 번호가 있다면 다시 메뉴로 돌아감
+//            for (MemberDTO mem : memberList) {
+//                if (mem.getMemberPhone().equals(phone)) {
+//                    System.out.println("이미 등록되어있는 핸드폰번호입니다.");
+//                    return;
+//                }
+//            }
+//        }
 
         System.out.print("이름을 입력하세요 : ");
         String name = sc.next();
 
-        System.out.print("사용지점을 입력하세요(강남 (1), 역삼 (2), 방배 (3) : ");
+        System.out.println(""" 
+                1. 천안
+                2. 시흥
+                3. 강남점
+                4. 양재점
+                5. 역삼점
+                6. 선릉점
+                7. 삼성점""");
+        System.out.print("이용하실 지점을 목록에서 선택해주세요. : ");
         int center = sc.nextInt();
         sc.nextLine();
 
@@ -85,7 +106,7 @@ public class AdminService {
 
         System.out.print("메뉴 번호 선택 : ");
         int num = sc.nextInt();
-
+        sc.nextLine();
         switch (num) {
             case 1:
                 selectAllMember(); // 회원전체조회 메서드실행
@@ -136,7 +157,7 @@ public class AdminService {
 
         System.out.print("메뉴 번호 선택 : ");
         int num = sc.nextInt();
-
+        sc.nextLine();
         switch (num) {
             case 1: // 회원이름변경 메서드 실행
                 updateMemberName(inputMemberPhone(), inputMemberName());
@@ -233,7 +254,15 @@ public class AdminService {
     }
 
     public int inputCenter() {
-        System.out.print("사용지점을 입력하세요(강남 (1), 역삼 (2), 방배 (3) : ");
+        System.out.println(""" 
+                1. 천안
+                2. 시흥
+                3. 강남점
+                4. 양재점
+                5. 역삼점
+                6. 선릉점
+                7. 삼성점""");
+        System.out.print("이용하실 지점을 목록에서 선택해주세요. : ");
         int center = sc.nextInt();
         sc.nextLine();
         return center;

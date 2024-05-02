@@ -21,7 +21,7 @@ public class InstructorService {
                     result= true;
                     return result;
                 }else {
-                    USER_ID=id;
+
                     result=false;
                     return result;
                 }
@@ -37,9 +37,9 @@ public class InstructorService {
     /**
      * 강사의 내정보 표시
      * */
-    public void printInstructorInfo(){
+    public void printInstructorInfo(String id){
         for(InstructorDTO instructorDTO : repository.getInstructorDTOList()){
-            if(USER_ID.equals(instructorDTO.getMemberPhone())){
+            if(id.equals(instructorDTO.getMemberPhone())){
                 System.out.println(instructorDTO.toString());
                 return;
             }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d388a293-358b-44be-8bdf-4a2c23b34f87" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/controller/ClimbingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/controller/ClimbingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/enum/AuthorityCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/constant/AuthorityCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/enum/GradeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/constant/GradeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/repository/ClimbingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/repository/ClimbingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/service/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/service/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/service/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/service/ClientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/service/InstructorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/service/InstructorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/view/ClimbingMainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/justdo/climbing/view/ClimbingMainMenu.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2foO2KzMpOcY8KJHJfoPTImg9we" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.JD-JustDo [:Run.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="Run" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.justdo.climbing.view.Run" />
+      <module name="JustDo_Merge.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.justdo.climbing.view.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Run" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d388a293-358b-44be-8bdf-4a2c23b34f87" name="Changes" comment="" />
+      <created>1714463758151</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714463758151</updated>
+      <workItem from="1714463763906" duration="60000" />
+      <workItem from="1714465821205" duration="611000" />
+      <workItem from="1714608018144" duration="7000" />
+      <workItem from="1714608053795" duration="6253000" />
+      <workItem from="1714614403442" duration="4000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
