@@ -8,6 +8,11 @@ import com.justdo.climbing.view.ResultPrinter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * 관리자 권한을 가지고 있는 사용자의 기능
+ * @author 안준렬, 이은솔
+ * @version 1.0
+ * */
 public class AdminService {
 
     private ArrayList<MemberDTO> memberList;
@@ -23,6 +28,10 @@ public class AdminService {
 
     private String USER_ID ="";
 
+    /**
+     * 관리자의 회원등록 처fl
+     * @apiNote 정보를 입력받고 ArrayList에 등록
+     * */
     public void inputMember() {
         // 회원리스트가 없으면 생성
         if (memberList == null || memberList.isEmpty()) {
