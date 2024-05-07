@@ -1,4 +1,4 @@
-package com.justdo.climbing.constant;
+package com.justdo.climbing.model.constant;
 
 public enum AuthorityCode {
     ADMIN("관리자"),
@@ -8,7 +8,6 @@ public enum AuthorityCode {
     private final String description;
 
     AuthorityCode(String description){
-        System.out.println(description);
         this.description = description;
     }
 

@@ -1,106 +1,346 @@
 package com.justdo.climbing.controller;
 
-import com.justdo.climbing.dto.member.ClientDTO;
-import com.justdo.climbing.service.AdminService;
-import com.justdo.climbing.service.ClientService;
-import com.justdo.climbing.service.InstructorService;
+import com.justdo.climbing.model.constant.AuthorityCode;
+import com.justdo.climbing.model.dto.member.ClientDTO;
+import com.justdo.climbing.model.service.ClientSerivce;
+import com.justdo.climbing.model.service.InstructorService;
+import com.justdo.climbing.model.service.common.CommonService;
+import com.justdo.climbing.view.MenuView;
 
-import java.util.Scanner;
+import java.util.List;
 
 public class ClimbingController {
 
-    private final String adminId = "admin";
-    private final String adminSecrete = "admin";
-
-    private Scanner sc = new Scanner(System.in);
-
+    private MenuView menuView = new MenuView();
+    private InputReader inputReader = InputReaderFactory.getInputReader();
+    private CommonService commonService = new CommonService();
+    private ClientSerivce clientSerivce = new ClientSerivce();
     private InstructorService instructorService = new InstructorService();
-    private ClientService clientService = new ClientService();
 
+    public void authorityMenu()  {
+        while (true){
 
-    /**
-     * 선택한 메뉴 번호 확인
-     * */
-    public int selectMenuNum(){
-        // TODO : Scanner를 Controller에 작성한 이유? view에 넣고 파라미터로 받아도 되는지?
-//        Scanner sc = new Scanner(System.in);
-        int num;
-        while(true){
-            try{
-                System.out.print("번호를 입력해주세요 : ");
-                num = sc.nextInt();
+            // 권한 메뉴 표시
+            menuView.authorityMenuView();
 
-                // TODO:try-catch사용하는데 비교할 필요 있는지?
-                if(Integer.class.isInstance(num)){
-                    sc.nextLine();
-                    return num;
-                }
-            } catch (Exception e){
-                System.out.println("메뉴의 정수만 입력하세요.");
-                sc.nextLine();
+            // 메뉴 입력
+            int authNum = inputReader.selectMenuNum();
+
+            //입력한 메뉴별 처리
+            switch (authNum) {
+                case 1:
+                    System.out.println(AuthorityCode.ADMIN.getDescription()+ "권한 을(를) 선택했습니다.");
+                    adminMenu(AuthorityCode.ADMIN.name());
+
+                    break;
+                case 2:
+                    System.out.println(AuthorityCode.INSTRUCTOR.getDescription() + " 을(를) 선택했습니다.");
+                    instructorMenu(AuthorityCode.INSTRUCTOR.name());
+                    break;
+                case 3:
+                    System.out.println(AuthorityCode.CLIENT.getDescription() + " 을(를) 선택했습니다.");
+                    clientMenu(AuthorityCode.CLIENT.name());
+                    break;
+                case 9:
+                    System.out.println("프로그램을 종료합니다.");
+                    InputReaderFactory.getInputReader().close();
+                    return;
+                default:
+                    System.out.println("선택하신 권한은 없는 권한입니다. \n 다시 입력해 주세요");
+                    break;
+            }
+
+        }
+    }
+
+    public void adminMenu(String authName){
+
+        while (true){
+            // 로그인전 관리자 메뉴 표시
+            menuView.mainMenuView();
+            //메뉴입력
+            int menuNum = inputReader.selectMenuNum();
+
+            // id password 초기화
+            String id ="";
+            String password = "";
+
+            //입력한 메뉴별 처리
+            switch (menuNum){
+                case 1:// 로그인
+
+                    System.out.print("아이디를 입력해주세요 : ");
+                    id = inputReader.inputString();
+
+                    System.out.print("비밀번호를 입력해주세요 : ");
+                    password = inputReader.inputString();
+
+                    //로그인 진행
+                    boolean isLogin = commonService.login(authName, id, password) != null;
+                    if(isLogin){
+                        //로그인후 관리자 화면
+                        adminLoginMenu();
+                    }
+
+                    break;
+                case 9:
+                    System.out.println("이전화면으로 되돌아갑니다.");
+                    return;
+            }
+        }
+
+    }
+
+    public void adminLoginMenu(){
+        while (true){
+            menuView.adminLoginMenuView();
+
+            //메뉴입력
+            int menuNum = inputReader.selectMenuNum();
+
+            switch (menuNum){
+                case 1:
+                    // 회원정보 등록
+                    clientSerivce.addClientInfo();
+                    break;
+                case 2:
+                    // 강사 등록 메소드 호출
+                    instructorService.addInstructorInfo();
+                    break;
+                case 3:
+                    // 회원 정보 수정 메소드 호출
+                    clientUpdateInfoMenu();
+                    break;
+                case 4:
+                    // 강사 정보 수정 메소드 호출
+                    instructorUpdateInfoMenu();
+                    break;
+                case 5:
+    //                // 회원 정보 조회 메소드 호출
+                    adminSearchInfo(AuthorityCode.CLIENT.name());
+                    break;
+                case 6:
+                    adminSearchInfo(AuthorityCode.INSTRUCTOR.name());
+                    break;
+                case 7:
+                    // 물품관리 메소드 호출
+                    break;
+                case 9:
+                    System.out.println("로그아웃을 완료했습니다.");
+                    return;
+                default:
+                    System.out.println("잘못된 숫자를 입력했습니다.\n다시 입력해주세요.");
+                    break;
             }
         }
     }
 
-    /**
-     * 권한이 일치한 경우 로그인 진행
-     * 배열 -> 각각 받는것으로 변경
-     * Stirng으로 넘겨서 받는걸로
-     * */
-    public String logIn(String authority){
-//        boolean isTrue = true;
-//        Scanner sc = new Scanner(System.in);
-        while(true) {
-            System.out.print("아이디(핸드폰 번호)를 입력하시오 : ");
-            String id = sc.nextLine();
-            System.out.print("비밀번호를 입력하시오 : ");
-            String secreteNum = sc.nextLine();
-//            this.loginInformation = new String[]{id, secreteNum};
-            if ("관리자".equals(authority)) {
-                if(!adminLogIn(id,secreteNum)){
-                    return id;
-                }
-
-            }else if ("강사".equals(authority)){
-                // 강사 로그인 메소드 호출
-                if(!instructorLogin(id,secreteNum)){
-                    return id;
-                }
-            }else{
-                // 회원 로그인 메소드 호출
-                //TODO:로그인과 회원 정보 출력 분리 필요
-                ClientDTO clientDTO = clientService.ClientLogin(id,secreteNum);
-                if(clientDTO != null){
-                    return id;
-                }
-
+    public void adminSearchInfo(String auth){
+        while (true){
+            menuView.searchMenuView();
+            System.out.print("메뉴를 입력하세요:");
+            int menuNum = inputReader.selectMenuNum();
+            switch (menuNum){
+                case 1:
+                    if("CLIENT".equals(auth)){
+                        clientSerivce.printClientListInfo(null);
+                    }else {
+                        instructorService.printInstructorInfo(null);
+                    }
+                    break;
+                case 2:
+                    System.out.print("조회하실 핸드폰 번호를 입력하세요 : ");
+                    String phoneNum = inputReader.inputString();
+                    if("CLIENT".equals(auth)){
+                        clientSerivce.printClientListInfo(phoneNum);
+                    }else {
+                        instructorService.printInstructorInfo(phoneNum);
+                    }
+                    break;
+                case 9:
+                    return;
+                default:
+                    System.out.println("메뉴를 다시 입력해주세요.");
+                    break;
             }
         }
 
     }
 
-    /**
-     * Controller 안에서만 실행될것이기 때문에 private으로 변경
-     * */
-    private boolean adminLogIn(String id, String secrete){
-        if(adminId.equals(id)){
-            if(adminSecrete.equals(secrete)){
-                return false;
-            }else{
-                System.out.println("비밀번호 오류");
-                return true;
+
+
+    public void clientUpdateInfoMenu(){
+        while (true){
+            menuView.updateClientMenu();
+            int updateMenuNum = inputReader.selectMenuNum();
+            switch (updateMenuNum){
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    clientSerivce.updateClientInfo(updateMenuNum);
+                    break;
+                case 5:
+                    return;
+                default:
+                    System.out.println("잘못된 숫자를 입력했습니다.\n다시 입력해주세요.");
+                    break;
+
             }
-        }else{
-            System.out.println("로그인 오류");
-            return true;
         }
     }
 
-    public boolean instructorLogin(String id, String secrete){
+    public void clientMenu(String authName){
+        String id = "";
+        String password = "";
+        while (true){
+            menuView.clientMenuView();
+            int menuNum = inputReader.selectMenuNum();
+            switch (menuNum){
+                case 1:
+                    // 회원가입 메소드 호출
+                    clientSerivce.addClientInfo();
+                    break;
+                case 2:
+                    // 로그인 메소드 호출
+                    System.out.print("핸드폰번호를 입력해주세요 : ");
+                    id = inputReader.inputString();
 
-        // service에서 로그인 처리 이동
-        return instructorService.instructorLogin(id,secrete);
+                    System.out.print("이름을 입력해주세요 : ");
+                    password = inputReader.inputString();
+
+                    //로그인 진행
+                    boolean isLogin = commonService.login(authName, id, password) != null;
+                    if(isLogin){
+                        //로그인후 관리자 화면
+                        clientLoginMenu(id);
+                    }
+                    break;
+                case 9:
+                    System.out.println("이전화면으로 되돌아갑니다.");
+                    return;
+                default:
+                    System.out.println("잘못된 숫자를 입력했습니다. 다시 입력해주세요.");
+                    break;
+            }
+        }
+    }
+
+    public void clientLoginMenu(String id){
+        while (true){
+            menuView.clientLoginMenuView();
+            int menuNum = inputReader.selectMenuNum();
+            switch (menuNum){
+                case 1:
+                    // 내정보 불러오기 메소드
+                    clientSerivce.printClientListInfo(id);
+                    break;
+                case 2:
+                    // 회원권 구매 메소드
+                    System.out.println("구현 예정입니다.");
+//                    clientService.purchase(id);
+                    break;
+                case 3:
+                    // 물품 구매 메소드
+                    System.out.println("구현 예정입니다.");
+                    break;
+                case 4:
+                    // 입장하기 메소드 호출
+                    System.out.println("구현 예정입니다.");
+                    break;
+                case 9:
+                    System.out.println("로그아웃을 완료했습니다.");
+                    return;
+                default:
+                    System.out.println("잘못된 숫자를 입력했습니다. 다시 입력해주세요.");
+                    break;
+            }
+        }
+    }
+
+    public void instructorMenu(String authName){
+
+        while (true){
+            // 로그인전 관리자 메뉴 표시
+            menuView.mainMenuView();
+            //메뉴입력
+            int menuNum = inputReader.selectMenuNum();
+
+            // id password 초기화
+            String id ="";
+            String password = "";
+
+            //입력한 메뉴별 처리
+            switch (menuNum){
+                case 1:// 로그인
+
+                    System.out.print("핸드폰번호를 입력해주세요 : ");
+                    id = inputReader.inputString();
+
+                    System.out.print("이름을 입력해주세요 : ");
+                    password = inputReader.inputString();
+
+                    //로그인 진행
+                    boolean isLogin = commonService.login(authName, id, password) != null;
+                    if(isLogin){
+                        instructorLoginMenu(id);
+                    }
+                    break;
+                case 9:
+                    System.out.println("이전화면으로 되돌아갑니다.");
+                    return;
+            }
+        }
+    }
+
+    public void instructorLoginMenu(String id){
+        while (true){
+            menuView.instructorLoginMenuView();
+            int menuNum = inputReader.selectMenuNum();
+            switch (menuNum){
+                case 1:
+                    instructorService.printInstructorInfo(id);
+                    break;
+                case 2:
+                    List<ClientDTO> clientList = instructorService.printClientInfoToInstructor(id);
+                    if(clientList.isEmpty()){
+                        System.out.println("수강신청한 회원이 없습니다.");
+                    }else {
+                        System.out.println(clientList);
+                    }
+                    break;
+                case 9:
+                    System.out.println("로그아웃을 완료했습니다.");
+                    return;
+                default:
+                    System.out.println("잘못된 숫자를 입력했습니다. 다시 입력해주세요.");
+                    break;
+            }
+        }
 
     }
 
+    public void instructorUpdateInfoMenu(){
+        while (true){
+            menuView.updateClientMenu();
+            int updateMenuNum = inputReader.selectMenuNum();
+            switch (updateMenuNum){
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    instructorService.updateInstructorInfo(updateMenuNum);
+                    break;
+                case 5:
+                    return;
+                default:
+                    System.out.println("잘못된 숫자를 입력했습니다.\n다시 입력해주세요.");
+                    break;
+
+            }
+        }
+    }
 }
+
+
+

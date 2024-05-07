@@ -2,7 +2,6 @@ package com.justdo.climbing.view;
 
 import com.justdo.climbing.constant.AuthorityCode;
 import com.justdo.climbing.controller.ClimbingController;
-import com.justdo.climbing.dto.member.ClientDTO;
 import com.justdo.climbing.service.AdminService;
 import com.justdo.climbing.service.ClientService;
 import com.justdo.climbing.service.InstructorService;
@@ -92,7 +91,7 @@ public class ClimbingMainMenu {
     /**
      * 로그인 후 관리자 메뉴
      * */
-    public void AdminMenu_login(){
+    public void AdminMenu_login() {
         while(true){
             System.out.println("""
                         =========================================
@@ -238,7 +237,6 @@ public class ClimbingMainMenu {
                 case 1:
                     // 회원가입 메소드 호출
                     clientService.AddClientInfo();
-//                    AddMember.addId(clientDTOList);
                     break;
                 case 2:
                     // 로그인 메소드 호출
@@ -269,6 +267,7 @@ public class ClimbingMainMenu {
                     1. 내정보
                     2. 회원권 구매
                     3. 물품 구매
+                    4. 입장하기
                     9. 로그아웃
                     =========================================
                     """);
@@ -284,6 +283,9 @@ public class ClimbingMainMenu {
                     break;
                 case 3:
                     // 물품 구매 메소드
+                    break;
+                case 4:
+                    // 입장하기 메소드 호출
                     break;
                 case 9:
                     System.out.println("로그아웃을 완료했습니다.");

@@ -2,10 +2,6 @@ package com.justdo.climbing.view;
 
 public class ResultPrinter {
 
-    /**
-     * 에러메세지를 출력하는 메소드
-     * @param 출력할 메세지 종류
-     * */
     public void errorPage(String msg) {
         switch (msg) {
             case "insertMember":
@@ -24,10 +20,6 @@ public class ResultPrinter {
 
     }
 
-    /**
-     * 성공메세지를 출력하는 메소드
-     * @param 출력할 메세지 종류
-     * */
     public void successPage(String msg) {
         switch (msg) {
             case "insertMember":

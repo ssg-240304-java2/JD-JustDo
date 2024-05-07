@@ -1,18 +1,13 @@
 package com.justdo.climbing.service;
 
-import com.justdo.climbing.dto.member.InstructorDTO;
-import com.justdo.climbing.dto.member.MemberDTO;
+import com.justdo.climbing.controller.InputController;
+import com.justdo.climbing.model.dto.member.InstructorDTO;
+import com.justdo.climbing.model.dto.member.MemberDTO;
 import com.justdo.climbing.repository.ClimbingRepository;
 import com.justdo.climbing.view.ResultPrinter;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-/**
- * 관리자 권한을 가지고 있는 사용자의 기능
- * @author 안준렬, 이은솔
- * @version 1.0
- * */
 public class AdminService {
 
     private ArrayList<MemberDTO> memberList;
@@ -21,29 +16,22 @@ public class AdminService {
 
     private ClimbingRepository repository = ClimbingRepository.getInstance();
 
-    private Scanner sc = new Scanner(System.in);
+    private InputController controller = new InputController();
 
     private static final String CHECK_PHONE_NUMBER_HYPHEN = "^[\\d]{8}+$";
     private static final int CHECK_PHONE_NUMBER_LENGTH = 8;
 
     private String USER_ID ="";
 
-    /**
-     * 관리자의 회원등록 처fl
-     * @apiNote 정보를 입력받고 ArrayList에 등록
-     * */
     public void inputMember() {
         // 회원리스트가 없으면 생성
         if (memberList == null || memberList.isEmpty()) {
             memberList = new ArrayList<>();
         }
-
-
         // 회원정보를 담을 멤버 객체 선언
         MemberDTO m = null;
-
         System.out.print("(010, - 제외한)휴대폰 번호 8자리를 입력하세요 : ");
-        String phone = sc.next();
+        String phone = controller.inputString();
         boolean instructorPhonNumber =checkInstructorPhonNumber(phone);
 
         if (!instructorPhonNumber){
@@ -58,50 +46,21 @@ public class AdminService {
             }
         }
 
-        // 번호가 8자리가 아니면 메뉴로 다시 돌아감
-//        if (phone.length() != 8) {
-//            System.out.println("휴대폰번호는 8자리여만 입력해야합니다.");
-//            return;
-//        } else {
-//            // 번호가 8자리이면 입력받은 핸드폰번호를 멤버리스트에서 중복번호가 있는지 검사
-//            // 중복된 번호가 있다면 다시 메뉴로 돌아감
-//            for (MemberDTO mem : memberList) {
-//                if (mem.getMemberPhone().equals(phone)) {
-//                    System.out.println("이미 등록되어있는 핸드폰번호입니다.");
-//                    return;
-//                }
-//            }
-//        }
-
         System.out.print("이름을 입력하세요 : ");
-        String name = sc.next();
-
-        System.out.println(""" 
-                1. 천안
-                2. 시흥
-                3. 강남점
-                4. 양재점
-                5. 역삼점
-                6. 선릉점
-                7. 삼성점""");
-        System.out.print("이용하실 지점을 목록에서 선택해주세요. : ");
-        int center = sc.nextInt();
-        sc.nextLine();
+        String name = controller.inputString();
 
         System.out.print("성별을 입력하세요 남(1), 여(2) : ");
         boolean gender = false;
-        int checkGender = sc.nextInt();
-        sc.nextLine();
+        int checkGender = controller.selectMenuNum();
         if (checkGender == 1) {
             gender = true;
         }
 
         System.out.print("나이를 입력하세요 : ");
-        int age = sc.nextInt();
-        sc.nextLine();
+        int age = controller.selectMenuNum();
 
         // 받은 회원정보를 선언한 멤버객체에 넣어줌
-        m = new MemberDTO(name,phone,center,gender,age);
+        m = new MemberDTO(name,phone,gender,age);
 
         // 멤버객체를 리스트에 추가
         memberList.add(m);
@@ -114,13 +73,11 @@ public class AdminService {
         System.out.println("2. 회원한명조회");
 
         System.out.print("메뉴 번호 선택 : ");
-        int num = sc.nextInt();
-        sc.nextLine();
+        int num = controller.selectMenuNum();
         switch (num) {
             case 1:
                 selectAllMember(); // 회원전체조회 메서드실행
                 break;
-
             case 2:
                 selectOneMember(inputMemberPhone()); // 회원한명조회 메서드실행
                 break;
@@ -132,7 +89,7 @@ public class AdminService {
      * */
     public String inputMemberPhone() {
         System.out.print("(010, - 제외한)휴대폰 번호 8자리를 입력하세요 : ");
-        String phone = sc.next();
+        String phone = controller.inputString();
         return phone;
     }
 
@@ -159,28 +116,23 @@ public class AdminService {
 
     public void updateMemberMenu() {
         System.out.println("1. 회원이름수정");
-        System.out.println("2. 회원센터수정");
-        System.out.println("3. 회원성별수정");
-        System.out.println("4. 회원나이수정");
-        System.out.println("5. 회원탈퇴");
+        System.out.println("2. 회원성별수정");
+        System.out.println("3. 회원나이수정");
+        System.out.println("4. 회원탈퇴");
 
         System.out.print("메뉴 번호 선택 : ");
-        int num = sc.nextInt();
-        sc.nextLine();
+        int num = controller.selectMenuNum();
         switch (num) {
             case 1: // 회원이름변경 메서드 실행
                 updateMemberName(inputMemberPhone(), inputMemberName());
                 break;
-            case 2: // 회원센터변경 메서드 실행
-                updateMemberCenter(inputMemberPhone(), inputCenter());
-                break;
-            case 3: // 회원성별변경 메서드 실행
+            case 2: // 회원성별변경 메서드 실행
                 updateMemberGender(inputMemberPhone(), inputMemberGender());
                 break;
-            case 4: // 회원나이변경 메서드 실행
+            case 3: // 회원나이변경 메서드 실행
                 updateMemberAge(inputMemberPhone(), inputMemberAge());
                 break;
-            case 5: // 회원탈퇴 메서드 실행
+            case 4: // 회원탈퇴 메서드 실행
                 deleteMember(inputMemberPhone());
                 break;
         }
@@ -193,20 +145,6 @@ public class AdminService {
                 // 일치하는 회원이 있을경우 이름수정
                 if (memberList.get(i).getMemberPhone().equals(memberPhone)) {
                     memberList.get(i).setMemberName(memberName);
-                    break;
-                }
-            }
-        }
-    }
-
-    // 회원 센터 수정
-    public void updateMemberCenter(String memberPhone, int center) {
-        if (memberList != null) {
-            // 핸드폰번호와 일치하는 회원 탐색
-            // 일치하는 회원이 있을경우 센터수정
-            for (int i = 0; i < memberList.size(); i++) {
-                if (memberList.get(i).getMemberPhone().equals(memberPhone)) {
-                    memberList.get(i).setCenter(center);
                     break;
                 }
             }
@@ -259,30 +197,14 @@ public class AdminService {
 
     public String inputMemberName() {
         System.out.print("이름을 입력하세요 : ");
-        return sc.next();
-    }
-
-    public int inputCenter() {
-        System.out.println(""" 
-                1. 천안
-                2. 시흥
-                3. 강남점
-                4. 양재점
-                5. 역삼점
-                6. 선릉점
-                7. 삼성점""");
-        System.out.print("이용하실 지점을 목록에서 선택해주세요. : ");
-        int center = sc.nextInt();
-        sc.nextLine();
-        return center;
+        return controller.inputString();
     }
 
     // 회원성별을 입력받는 메서드
     public boolean inputMemberGender() {
         System.out.print("성별을 입력하세요 남(1), 여(2) : ");
         boolean gender = false;
-        int checkGender = sc.nextInt();
-        sc.nextLine();
+        int checkGender = controller.selectMenuNum();
         if (checkGender == 1) {
             gender = true;
         }
@@ -292,19 +214,16 @@ public class AdminService {
     // 회원나이를 입력받는 메서드
     public int inputMemberAge() {
         System.out.print("나이를 입력하세요 : ");
-        int age = sc.nextInt();
-        sc.nextLine();
+        int age = controller.selectMenuNum();
         return age;
     }
 
     public void AddInstructorInfo(){
         while (true) {
             System.out.print("핸드폰 번호를 입력해주세요 (010,- 제외 8자리): ");
-           // sc.nextLine();
-            String inputPhone = sc.nextLine();
+            String inputPhone = controller.inputString();
             boolean instructorPhonNumber =checkInstructorPhonNumber(inputPhone);
             boolean iscontainsPhoneNumber = repository.isContainsInstructorPhoneNumber(inputPhone);
-
             if (instructorPhonNumber && !iscontainsPhoneNumber){
                 System.out.println("사용 가능한 핸드폰 번호 입니다.");
                 //리스트에 추가
@@ -342,7 +261,7 @@ public class AdminService {
 
         while (true){
             System.out.print("핸드폰 번호를 입력해주세요 (010,- 제외 8자리): ");
-            String editPhoneNumber = sc.nextLine();
+            String editPhoneNumber = controller.inputString();
             boolean instructorPhonNumber = checkUpdateInstructorPhonNumber(editPhoneNumber);
             boolean iscontainsPhoneNumber = repository.isContainsUpdateInstructorPhoneNumber(editPhoneNumber);
 
