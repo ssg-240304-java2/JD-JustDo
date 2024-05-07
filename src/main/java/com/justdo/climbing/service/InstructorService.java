@@ -1,7 +1,7 @@
 package com.justdo.climbing.service;
 
-import com.justdo.climbing.dto.member.ClientDTO;
-import com.justdo.climbing.dto.member.InstructorDTO;
+import com.justdo.climbing.model.dto.member.ClientDTO;
+import com.justdo.climbing.model.dto.member.InstructorDTO;
 import com.justdo.climbing.repository.ClimbingRepository;
 
 import java.util.ArrayList;

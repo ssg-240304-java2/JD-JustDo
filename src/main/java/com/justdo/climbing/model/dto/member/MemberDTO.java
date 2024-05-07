@@ -1,4 +1,4 @@
-package com.justdo.climbing.dto.member;
+package com.justdo.climbing.model.dto.member;
 
 public class MemberDTO {
     private String memberName;

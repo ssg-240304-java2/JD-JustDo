@@ -1,4 +1,4 @@
-package com.justdo.climbing.dto.member;
+package com.justdo.climbing.model.dto.member;
 
 public class InstructorDTO extends MemberDTO{
     private int instructorNo;
@@ -23,8 +23,8 @@ public class InstructorDTO extends MemberDTO{
         this.instructorGrade = instructorGrade;
     }
 
-    public InstructorDTO(String memberName, String memberPhone, int center, boolean memberGender, int memberAge, int instructorNo, char instructorGrade) {
-        super(memberName, memberPhone, center, memberGender, memberAge);
+    public InstructorDTO(String memberName, String memberPhone, boolean memberGender, int memberAge, int instructorNo, char instructorGrade) {
+        super(memberName, memberPhone,memberGender, memberAge);
         this.instructorNo = instructorNo;
         this.instructorGrade = instructorGrade;
     }
