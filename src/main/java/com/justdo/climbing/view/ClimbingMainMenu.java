@@ -15,7 +15,7 @@ public class ClimbingMainMenu {
     private ClientService clientService = new ClientService();
 
     /**
-     * 권한 선택메뉴 메뉴뷰
+     * 권한 선택메뉴
      * */
     public void AuthorityMenu(){
         boolean isTrue = true;
